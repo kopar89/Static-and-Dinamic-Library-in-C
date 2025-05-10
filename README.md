@@ -1,0 +1,1 @@
+# Static-and-Dinamic-Library-in-C
