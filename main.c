@@ -7,7 +7,11 @@
 int main() {
     int n;
     printf("Введите размерность матриц (степень двойки): ");
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1) {
+        fprintf(stderr, "Ошибка ввода!\n");
+        return 1;
+        }
+
 
     if (n <= 0 || (n & (n - 1)) != 0) {
         printf("Ошибка: размерность должна быть положительной степенью двойки.\n");
@@ -16,18 +20,18 @@ int main() {
 
     srand(time(NULL));
 
-    int** A = allocate_matrix(n);
-    int** B = allocate_matrix(n);
+    int** A = create_matrix(n);
+    int** B = create_matrix(n);
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++) {
             A[i][j] = rand() % 10;
             B[i][j] = rand() % 10;
         }
 
-    int** result_classic = allocate_matrix(n);
+    int** result_classic = create_matrix(n);
     matrix_multiply(result_classic, A, B, n);
 
-    int** result_strassen = allocate_matrix(n);
+    int** result_strassen = create_matrix(n);
     strassen(A, B, result_strassen, n);
 
     printf("\nМатрица A:\n");
